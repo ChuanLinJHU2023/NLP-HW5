@@ -97,15 +97,42 @@ One may want function f because he wants to conveniently describe Papa.
 ./parseattrs  english.gra  english.sen
 ./parseattrs  english.gra  english.sen > english.para
 
-Here are the english sentences with wrong parse
+Here are the english sentences with wrong parse:
 him love -s she .
 Papa eat -ed every bonbon with a spoon .
-a bonbon on the spoon entice -s .
 Papa want -ed a pickle to eat Joe .
-ROOT: Papa would have eat -ed his sandwich -s .
+Papa would have eat -ed his sandwich -s .
 
+1. him love -s she .
+This is an ungrammatical sentence while it is not printed that "there is no consistent way to assign attributes"
+The attributes are inappropriate because it clear that the subject is a man and the object is a woman. However, we have:
+(NP: him ; Attributes: head=him sem=him num=sing case=obj) and (NP: she ; Attributes: num=sing head=she sem=her case=subj)
+It would not have helped if the parser had chosen a different parse.
 
+2. Papa eat -ed every bonbon with a spoon .
+This is a grammatical sentence while the system didn't find the most plausible semantics.
+Given the parse tree, the attributes are appropriate.
+However, it would have helped if the parser had chosen a different parse.
+In our parse tree, we decompose (VP: eat -ed every bonbon with a spoon) into (V: eat -ed) and (NP: every bonbon with a spoon)
+In idea parse tree, we decompose (VP: eat -ed every bonbon with a spoon) into (VP: eat -ed every bonbon) and (PP: with a spoon)
 
+3. Papa want -ed a pickle to eat Joe .
+This is a grammatical sentence while the system didn't find the most plausible semantics.
+Given the parse tree, the attributes are appropriate.
+However, it would have helped if the parser had chosen a different parse.
+In our parse tree, we decompose (VP: want -ed a pickle to eat Joe) into (V: want -ed) and (NP: a pickle) and (VP: to eat Joe)
+In idea parse tree, we decompose (VP: want -ed a pickle to eat Joe) into (VP: want -ed a pickle) and (PP: to eat Joe)
+It is clearly that a pickle can't eat something. "Papa wanted a pickle to eat Joe" is similar with "I want the fork and knife to eat beef steak"
+
+4. Papa would have eat -ed his sandwich -s .
+This is a grammatical sentence while the system didn't find the most plausible semantics.
+However, it would not have helped if the parser had chosen a different parse.
+Given the parse tree, the attributes are almost appropriate. However, there is a small problem.
+When we are dealing with the tenses, we are moving the tense attribute of a smaller constituent into the sem attribute of the bigger constituent.
+For example, we have a small constituent (VP: been delicious ; Attributes: tense=pastp head=be sem=%subj delicious(subj)) and a bigger constituent (VP: to have been delicious ; Attributes: head=be sem=%subj Perf(delicious(subj)) arg=np tense=inf) in next sentence
+We are moving the "tense=pastp" of the small constituent into the "sem=%subj Perf(delicious(subj))" of the bigger constituent. Namely, tense=pastp --> Perf()
+However, in this sentence, (VP: would have eat -ed his sandwich -s ; Attributes: sem=%subj would(Perf(eat(the_plural(%x sandwich(x)^possess(x,him)),subj))) head=eat arg=np tense=modal)
+We have "tense=modal" and "sem = **** would *****" at the same time, which is inappropriate.
 
 
 
