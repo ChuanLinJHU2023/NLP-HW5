@@ -103,20 +103,20 @@ Papa eat -ed every bonbon with a spoon .
 Papa want -ed a pickle to eat Joe .
 Papa would have eat -ed his sandwich -s .
 
-1. him love -s she .
+him love -s she .
 This is an ungrammatical sentence while it is not printed that "there is no consistent way to assign attributes"
 The attributes are inappropriate because it clear that the subject is a man and the object is a woman. However, we have:
 (NP: him ; Attributes: head=him sem=him num=sing case=obj) and (NP: she ; Attributes: num=sing head=she sem=her case=subj)
 It would not have helped if the parser had chosen a different parse.
 
-2. Papa eat -ed every bonbon with a spoon .
+Papa eat -ed every bonbon with a spoon .
 This is a grammatical sentence while the system didn't find the most plausible semantics.
 Given the parse tree, the attributes are appropriate.
 However, it would have helped if the parser had chosen a different parse.
 In our parse tree, we decompose (VP: eat -ed every bonbon with a spoon) into (V: eat -ed) and (NP: every bonbon with a spoon)
 In idea parse tree, we decompose (VP: eat -ed every bonbon with a spoon) into (VP: eat -ed every bonbon) and (PP: with a spoon)
 
-3. Papa want -ed a pickle to eat Joe .
+Papa want -ed a pickle to eat Joe .
 This is a grammatical sentence while the system didn't find the most plausible semantics.
 Given the parse tree, the attributes are appropriate.
 However, it would have helped if the parser had chosen a different parse.
@@ -124,7 +124,7 @@ In our parse tree, we decompose (VP: want -ed a pickle to eat Joe) into (V: want
 In idea parse tree, we decompose (VP: want -ed a pickle to eat Joe) into (VP: want -ed a pickle) and (PP: to eat Joe)
 It is clearly that a pickle can't eat something. "Papa wanted a pickle to eat Joe" is similar with "I want the fork and knife to eat beef steak"
 
-4. Papa would have eat -ed his sandwich -s .
+Papa would have eat -ed his sandwich -s .
 This is a grammatical sentence while the system didn't find the most plausible semantics.
 However, it would not have helped if the parser had chosen a different parse.
 Given the parse tree, the attributes are almost appropriate. However, there is a small problem.
@@ -134,14 +134,98 @@ We are moving the "tense=pastp" of the small constituent into the "sem=%subj Per
 However, in this sentence, (VP: would have eat -ed his sandwich -s ; Attributes: sem=%subj would(Perf(eat(the_plural(%x sandwich(x)^possess(x,him)),subj))) head=eat arg=np tense=modal)
 We have "tense=modal" and "sem = **** would *****" at the same time, which is inappropriate.
 
+5.
+Give up
+
+6-a.
+./parseattrs english-fullquant.gra english.sen > english-fullquant.para
+
+The sementic of any determiner is a lambda-term whose parameters are a domain %dom and a predicate %pred.
+For the ease of explanation, we assume that the domain and the predicate are given.
+
+1 Det[=1 num=pl   sem="%dom %pred E%first E%second [first!=second ^ dom(first)^dom(second)] ^ pred(first) ^ pred(second)"] two
+This lambda term means that there exists two different entities "first" and "second" that are both within the given domain and satisfies the given predicate.
+
+1 Det[=1 num=sing sem="%dom %pred E%t [dom(t) ^ A%u [dom(u) ^ u!=t ==> salience(u) < salience(t)] ] ^ pred(t)"] the
+The lambda term means that there exits an entity "t" that is within the given domain and satisfies the predicate. Besides, it is the only most salient entities within its domain.
+
+1 Det[=1 num=pl   sem="%dom %pred E%T [subset(T,dom) ^ |T|>one ^ A%U [subset(U,dom) ^ |U|>one ^ U!=T ==> salience(U) < salience(T)] ] ^ pred(T)"] the
+The lambda term means that there exits a set of entities "T" that is within the given domain and satisfies the predicate. Besides, it is the only most salient set among all subsets that is within the given domain. Besides, the cardinality of this set is more than one.
 
 
+6-b.
+Let's us focus on our current parse
+       want: want
+       Attributes: head=want sem=want
+    V: want
+    Attributes: tense=stem head=want sem=%obj %subj want(obj,subj) arg=np
+    Or:       tense=stem head=want sem=%pred %subj want(pred(subj), subj) arg=vpinf
+    Or:       tense=stem head=want sem=%obj %pred %subj want(pred(obj), subj) arg=npvpinf
+    -ed: -ed
+    Attributes: sem=-ed head=-ed
+ V: want -ed
+ Attributes: tense=past head=want sem=%obj %subj want(obj,subj) arg=np
+ Or:       tense=pastp head=want sem=%obj %subj want(obj,subj) arg=np
+ Or:       sem=%pred %subj want(pred(subj), subj) arg=vpinf tense=past head=want
+ Or:       tense=pastp head=want sem=%pred %subj want(pred(subj), subj) arg=vpinf
+ Or:       sem=%obj %pred %subj want(pred(obj), subj) arg=npvpinf tense=past head=want
+ Or:       head=want tense=pastp arg=npvpinf sem=%obj %pred %subj want(pred(obj), subj)
+       a: a
+       Attributes: head=a sem=a
+    Det: a
+    Attributes: sem=%dom %pred E%b [dom(b)] ^ pred(b) head=a num=sing
+       pickle: pickle
+       Attributes: head=pickle sem=pickle
+    N: pickle
+    Attributes: num=sing head=pickle sem=pickle
+ NP: a pickle
+ Attributes: head=pickle num=sing sem=%pred E%b [pickle(b)] ^ pred(b)
+       to: to
+       Attributes: sem=to head=to
+          eat: eat
+          Attributes: sem=eat head=eat
+       V: eat
+       Attributes: tense=stem head=eat sem=%obj %subj eat(obj,subj) arg=np
+       Or:       sem=%subj eat(SOMETHING,subj) arg=none tense=stem head=eat
+    V: to eat
+    Attributes: arg=np sem=%obj %subj eat(obj,subj) head=eat tense=inf
+    Or:       tense=inf head=eat sem=%subj eat(SOMETHING,subj) arg=none
+          Joe: Joe
+          Attributes: head=Joe sem=Joe
+       NPx: Joe
+       Attributes: sem=Joe num=sing head=Joe
+    NP: Joe
+    Attributes: sem=%pred pred(Joe) head=Joe num=sing
+ VP: to eat Joe
+ Attributes: sem=%subj eat(Joe,subj) tense=inf head=eat
+VP: want -ed a pickle to eat Joe
+Attributes: head=want tense=past sem=???
+Or:       sem=??? head=want tense=pastp
 
+The constituent
+"VP: want -ed a pickle to eat Joe" sem0 = ???
+is decomposed into the following constituents
+"V: want -ed" sem1 = %obj %pred %subj want(pred(obj), subj)                      , which can be tell by arg=npvpinf
+"NP: a pickle" sem2 = %pred E%b [pickle(b)] ^ pred(b)
+"VP: to eat Joe" sem3 = %subj eat(Joe,subj)
 
+By inference, we want
+sem0 = ??? =
+%subj want(E%b [pickle(b)] ^ eat(Joe,b), subj)
 
+We can see that
+E%b [pickle(b)] ^ eat(Joe,b) = sem2(sem3)
 
+As a result
+1(2)(3)
+= (%obj %pred %subj want(pred(obj), subj))(2)(3)
+= %subj want(2(3), subj)
+= want([pickle(b)] ^ eat(Joe,b), subj)
 
-
+As a result,
+we can see that the missing rule on line 114 should be
+1 VP[=1 tense=1 sem="???"] V[arg=npvpinf] NP VP[tense=inf] # "want him to eat"
+1 VP[=1 tense=1 sem=1(2)(3)] V[arg=npvpinf] NP VP[tense=inf] # "want him to eat"
 
 
 

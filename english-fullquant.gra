@@ -23,7 +23,7 @@
 #
 # Thus, the semantics of S -> NP VP changes from 2(1) to 1(2).
 #
-# Does the semantics of VP -> V NP change from 1(2) to 2(1)?
+# Does the semantics of VP -> V NP change from 1(2) to 2(1)? (SEE LINE 112)
 # The NP semantics 2 is now a function, so 2(1) is on the right track.
 # But 2 has the wrong input and output types for 2(1) to work.
 # If the object NP is "every pickle", then its semantics 2 could 
@@ -111,7 +111,8 @@
 1 VP[=1]		   V[arg=none]                     # intransitive verbs: "sleep"
 1 VP[=1 sem="%subj 2(%obj 1(obj,subj))"] V[arg=np] NP      # transitive verbs: "kiss Jill"
 1 VP[=1 tense=1 sem=1(2)]  V[arg=vpinf] VP[tense=inf]      # "want to eat"
-1 VP[=1 tense=1 sem="???"] V[arg=npvpinf] NP VP[tense=inf] # "want him to eat"
+# 1 VP[=1 tense=1 sem="???"] V[arg=npvpinf] NP VP[tense=inf] # "want him to eat"
+1 VP[=1 tense=1 sem=1(2)(3)] V[arg=npvpinf] NP VP[tense=inf] # "want him to eat"
 1 VP[=1 sem=1(2)]	   V[arg=cp] CP 		   # "say that ..."
 
 # Linking verbs are nice to have too.
@@ -312,7 +313,7 @@
 1 Det[=1 num=sing sem="%dom %pred A%d [dom(d)] ==> pred(d)"] every
 1 Det[=1 num=sing sem="%dom %pred A%i [dom(i)] ==> pred(i)"] each
 1 Det[=1 num=pl   sem="%dom %pred E%first E%second [first!=second ^ dom(first)^dom(second)] ^ pred(first) ^ pred(second)"] two
-
+2
 # The determiners below have both singular and plural forms.
 # We list them separately here so as to get a semantic difference
 # between "some bonbon" and "some bonbons", or "the bonbon" and "the bonbons."
