@@ -1,0 +1,135 @@
+1-a.
+I use the parse.exe from HW1
+./parse  -g  arith.gr < arith.sen
+./parse  -g  arith.gr < arith.sen | ./prettyprint
+./parse  -g  arith.gr < arith.sen | ./prettyprint > arith.par
+./buildattrs  arith.gra  arith.par
+
+1-b
+./buildattrs  arith-infix.gra  arith.par
+
+1-c
+./parse  -g  arith.gr < arith-typed.sen >  arith-typed.par
+./buildattrs  arith-typed.gra  arith-typed.par
+
+2
+(%x x*x)(3)
+(%x x*x)(y+y)
+(%x x*x)(y) + y
+(%a a)(%b f(b))
+(%a 3)(%b f(b))
+(%x green(x))(y)
+(%x %y ate(x,y))(lemur, leopard)
+(%x %y ate(x,y))(lemur)
+(%x %y ate(x,y))(lemur)(leopard)
+(%x f(x,y))(a)(b)(c(z))
+(%x f(x,y))(a,b,c(z))
+(%f f(x))(g)
+(%f f(f(f(x))))(g)
+(%f f(f(f(x))))(%t a(c(t)))
+(%f f(f(f(x))))(%t t*t)
+(%f f(f(f(x))))(%t a(b,c[t],d))
+
+3-a
+3-a-i
+%x loves(Mary,x)
+
+3-a-ii
+loves(Mary)
+
+3-b
+The semantic of VP (love) is that the lover is Mary and the lovee is John
+
+3-c-i
+f = %y A%x woman(x)->loves(x,y)
+
+3-c-ii
+f(John) is that every woman loves John
+f(x) is that every woman loves x
+
+3-d
+f(g) = %x Obviously(g(x))
+To build the semantics of “Sue obviously loves Mary", we need to
+f(g)(Sue) where g = %y loves(Sue,y)
+
+3-e
+f = %x %y (λe act(e, loving), lovee(e, x), lover(e, y))
+
+3-f
+f(Mary) = %y (λe act(e, loving), lovee(e, Mary), lover(e, y)) = %y λe act(e, loving), lovee(e, Mary), lover(e, y)
+g(f(Mary)) = %y (λe act(e, loving), lovee(e, Mary), lover(e, y), manner(e, passionate))
+As a result, we can conclude that g is as follows:
+g(h) = %y %e h(y,e), manner(e, passionate)
+
+3-g-i
+f (λx loves(Mary, x)) = (∀y woman(y) ⇒ loves(M ary, y))
+As a result,
+f(g) = (A%y woman(y) -> g(y))
+
+3-g-ii
+In English
+f (λx loves(Mary, x)) means: every woman is loved by Mary
+g = (λx loves(Mary, x)), then g(x) means: x is loved by Mary
+f(s) means that every woman has the attributed indicated by s
+
+3-h-i
+f(g) = (A%y woman(y) -> g(y))
+f = %g A%y woman(y) -> g(y)
+f = %t A%y woman(y) -> t(y)
+g(woman) = f = %t A%y woman(y) -> t(y)
+g = %h %t A%y h(y) -> t(y)
+
+3-h-ii
+In english, g(h,t) means that every entity with the attribute indicated by h has the attribute indicated by t
+
+3-i-i
+f (λx loves(Mary, x)) = loves(Mary, Papa)
+f(g) = g(Papa)
+f = %g g(Papa)
+
+3-i-ii
+f = %g g(Papa)
+f(g) means that Papa is with the attribute indicated by g
+f(g1), f(g2), f(g3)..... means that Papa is with the attributes indicated by g1, g2, g3.....
+One may want function f because he wants to conveniently describe Papa.
+
+4.
+./parseattrs  english.gra  english.sen
+./parseattrs  english.gra  english.sen > english.para
+
+Here are the english sentences with wrong parse
+him love -s she .
+Papa eat -ed every bonbon with a spoon .
+a bonbon on the spoon entice -s .
+Papa want -ed a pickle to eat Joe .
+ROOT: Papa would have eat -ed his sandwich -s .
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

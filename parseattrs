@@ -9,5 +9,6 @@ GRAMMAR=${1%.gra}                        # base name without .gra suffix
 SENTS=${2%.sen}                          # base name without .sen suffix
 ./delattrs $1 > $GRAMMAR.gr &&           # produce an attributeless version of the grammar
 ./checkvocab $GRAMMAR.gr $2 &&           # warn user and stop if input has out-of-vocab words
-./parse.py $GRAMMAR.gr $2 > $SENTS.par &&  # parse sentences using this attributeless grammar
+# ./parse.py $GRAMMAR.gr $2 > $SENTS.par &&  # parse sentences using this attributeless grammar
+./parse  -g  $GRAMMAR.gr < $2 >  $SENTS.par &&
 ./buildattrs $1 $SENTS.par               # attach attributes to the parses
