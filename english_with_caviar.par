@@ -1,0 +1,6 @@
+ (ROOT (S (NP Papa) (VP (V (V eat) -ed) (NP (Det the) (N caviar)))) .)
+ (ROOT (S (NP Papa) (VP (V (V eat) -ed) (NP (Det all) (N caviar)))) .)
+ (ROOT (S (NP Papa) (VP (V (V eat) -ed) (NP (Det his) (N caviar)))) .)
+ (ROOT (S (NP Papa) (VP (V (V eat) -ed) (N caviar))) .)
+ (ROOT (S (N caviar) (VP (V is) (Adj fine))) .)
+ (ROOT (S (NP (Det the) (N caviar)) (VP (V is) (Adj fine))) .)

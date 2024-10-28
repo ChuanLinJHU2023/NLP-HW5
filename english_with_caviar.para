@@ -1,0 +1,199 @@
+         Papa: Papa 
+         Attributes: sem=Papa head=Papa
+      NP: Papa 
+      Attributes: sem=Papa head=Papa num=sing
+               eat: eat 
+               Attributes: sem=eat head=eat
+            V: eat 
+            Attributes: tense=stem sem=%obj %subj eat(obj,subj) head=eat arg=np
+            Or:       arg=none head=eat tense=stem sem=%subj eat(SOMETHING,subj)
+            -ed: -ed 
+            Attributes: sem=-ed head=-ed
+         V: eat -ed 
+         Attributes: head=eat arg=np tense=past sem=%obj %subj eat(obj,subj)
+         Or:       head=eat arg=np tense=pastp sem=%obj %subj eat(obj,subj)
+         Or:       head=eat arg=none tense=past sem=%subj eat(SOMETHING,subj)
+         Or:       head=eat arg=none tense=pastp sem=%subj eat(SOMETHING,subj)
+               the: the 
+               Attributes: head=the sem=the
+            Det: the 
+            Attributes: num=sing head=the sem=the
+            Or:       sem=the_plural num=pl head=the
+            Or:       head=the num=mass sem=the_mass
+               caviar: caviar 
+               Attributes: sem=caviar head=caviar
+            N: caviar 
+            Attributes: head=caviar num=mass sem=caviar
+         NP: the caviar 
+         Attributes: sem=the_mass(caviar) num=mass head=caviar
+      VP: eat -ed the caviar 
+      Attributes: head=eat sem=%subj eat(the_mass(caviar),subj) tense=past
+      Or:       tense=past sem=%subj eat(the_mass(caviar),subj) num=pl head=eat
+      Or:       sem=%subj eat(the_mass(caviar),subj) tense=pastp head=eat
+      Or:       tense=pastp sem=%subj eat(the_mass(caviar),subj) num=pl head=eat
+   S: Papa eat -ed the caviar 
+   Attributes: head=eat sem=Past(eat(the_mass(caviar),Papa))
+   .: . 
+   Attributes: head=. sem=.
+ROOT: Papa eat -ed the caviar . 
+Attributes: sem=Assert(Speaker, Past(eat(the_mass(caviar),Papa))) head=eat
+---
+         Papa: Papa 
+         Attributes: head=Papa sem=Papa
+      NP: Papa 
+      Attributes: sem=Papa num=sing head=Papa
+               eat: eat 
+               Attributes: head=eat sem=eat
+            V: eat 
+            Attributes: sem=%obj %subj eat(obj,subj) tense=stem head=eat arg=np
+            Or:       sem=%subj eat(SOMETHING,subj) tense=stem head=eat arg=none
+            -ed: -ed 
+            Attributes: sem=-ed head=-ed
+         V: eat -ed 
+         Attributes: sem=%obj %subj eat(obj,subj) tense=past arg=np head=eat
+         Or:       sem=%obj %subj eat(obj,subj) tense=pastp head=eat arg=np
+         Or:       sem=%subj eat(SOMETHING,subj) tense=past head=eat arg=none
+         Or:       sem=%subj eat(SOMETHING,subj) tense=pastp arg=none head=eat
+               all: all 
+               Attributes: head=all sem=all
+            Det: all 
+            Attributes: head=all num=pl sem=all
+            Or:       sem=all num=mass head=all
+               caviar: caviar 
+               Attributes: sem=caviar head=caviar
+            N: caviar 
+            Attributes: num=mass head=caviar sem=caviar
+         NP: all caviar 
+         Attributes: sem=all(caviar) num=mass head=caviar
+      VP: eat -ed all caviar 
+      Attributes: tense=past sem=%subj eat(all(caviar),subj) head=eat
+      Or:       sem=%subj eat(all(caviar),subj) tense=past head=eat num=pl
+      Or:       tense=pastp sem=%subj eat(all(caviar),subj) head=eat
+      Or:       tense=pastp sem=%subj eat(all(caviar),subj) num=pl head=eat
+   S: Papa eat -ed all caviar 
+   Attributes: head=eat sem=Past(eat(all(caviar),Papa))
+   .: . 
+   Attributes: sem=. head=.
+ROOT: Papa eat -ed all caviar . 
+Attributes: sem=Assert(Speaker, Past(eat(all(caviar),Papa))) head=eat
+---
+         Papa: Papa 
+         Attributes: sem=Papa head=Papa
+      NP: Papa 
+      Attributes: num=sing head=Papa sem=Papa
+               eat: eat 
+               Attributes: sem=eat head=eat
+            V: eat 
+            Attributes: arg=np head=eat tense=stem sem=%obj %subj eat(obj,subj)
+            Or:       sem=%subj eat(SOMETHING,subj) tense=stem arg=none head=eat
+            -ed: -ed 
+            Attributes: sem=-ed head=-ed
+         V: eat -ed 
+         Attributes: sem=%obj %subj eat(obj,subj) tense=past head=eat arg=np
+         Or:       tense=pastp sem=%obj %subj eat(obj,subj) arg=np head=eat
+         Or:       tense=past sem=%subj eat(SOMETHING,subj) arg=none head=eat
+         Or:       sem=%subj eat(SOMETHING,subj) tense=pastp head=eat arg=none
+               his: his 
+               Attributes: head=his sem=his
+            Det: his 
+            Attributes: num=sing head=his sem=%n the(%x n(x)^possess(x,him))
+            Or:       head=his num=pl sem=%n the_plural(%x n(x)^possess(x,him))
+            Or:       sem=%n the_mass(%x n(x)^possess(x,him)) head=his num=mass
+               caviar: caviar 
+               Attributes: sem=caviar head=caviar
+            N: caviar 
+            Attributes: sem=caviar num=mass head=caviar
+         NP: his caviar 
+         Attributes: head=caviar num=mass sem=the_mass(%x caviar(x)^possess(x,him))
+      VP: eat -ed his caviar 
+      Attributes: head=eat sem=%subj eat(the_mass(%x caviar(x)^possess(x,him)),subj) tense=past
+      Or:       tense=past sem=%subj eat(the_mass(%x caviar(x)^possess(x,him)),subj) num=pl head=eat
+      Or:       head=eat tense=pastp sem=%subj eat(the_mass(%x caviar(x)^possess(x,him)),subj)
+      Or:       num=pl head=eat tense=pastp sem=%subj eat(the_mass(%x caviar(x)^possess(x,him)),subj)
+   S: Papa eat -ed his caviar 
+   Attributes: sem=Past(eat(the_mass(%x caviar(x)^possess(x,him)),Papa)) head=eat
+   .: . 
+   Attributes: sem=. head=.
+ROOT: Papa eat -ed his caviar . 
+Attributes: head=eat sem=Assert(Speaker, Past(eat(the_mass(%x caviar(x)^possess(x,him)),Papa)))
+---
+         Papa: Papa 
+         Attributes: sem=Papa head=Papa
+      NP: Papa 
+      Attributes: head=Papa num=sing sem=Papa
+               eat: eat 
+               Attributes: sem=eat head=eat
+            V: eat 
+            Attributes: tense=stem sem=%obj %subj eat(obj,subj) arg=np head=eat
+            Or:       tense=stem sem=%subj eat(SOMETHING,subj) head=eat arg=none
+            -ed: -ed 
+            Attributes: sem=-ed head=-ed
+         V: eat -ed 
+         Attributes: tense=past sem=%obj %subj eat(obj,subj) head=eat arg=np
+         Or:       arg=np head=eat tense=pastp sem=%obj %subj eat(obj,subj)
+         Or:       head=eat arg=none sem=%subj eat(SOMETHING,subj) tense=past
+         Or:       arg=none head=eat sem=%subj eat(SOMETHING,subj) tense=pastp
+            caviar: caviar 
+            Attributes: head=caviar sem=caviar
+         N: caviar 
+         Attributes: head=caviar num=mass sem=caviar
+      VP: eat -ed caviar 
+      Attributes: head=eat num=sing sem=%subj eat(caviar,subj) tense=past
+      Or:       num=sing head=eat tense=pastp sem=%subj eat(caviar,subj)
+   S: Papa eat -ed caviar 
+   Attributes: sem=Past(eat(caviar,Papa)) head=eat
+   .: . 
+   Attributes: sem=. head=.
+ROOT: Papa eat -ed caviar . 
+Attributes: head=eat sem=Assert(Speaker, Past(eat(caviar,Papa)))
+---
+         caviar: caviar 
+         Attributes: sem=caviar head=caviar
+      N: caviar 
+      Attributes: head=caviar num=mass sem=caviar
+            is: is 
+            Attributes: sem=is head=is
+         V: is 
+         Attributes: arg=pred head=be num=sing sem=%pred %subj pred(subj) tense=pres
+            fine: fine 
+            Attributes: sem=fine head=fine
+         Adj: fine 
+         Attributes: sem=fine head=fine
+      VP: is fine 
+      Attributes: head=be num=sing sem=%subj fine(subj) tense=pres
+   S: caviar is fine 
+   Attributes: head=be sem=Pres(fine(caviar))
+   .: . 
+   Attributes: sem=. head=.
+ROOT: caviar is fine . 
+Attributes: sem=Assert(Speaker, Pres(fine(caviar))) head=be
+---
+            the: the 
+            Attributes: sem=the head=the
+         Det: the 
+         Attributes: num=sing head=the sem=the
+         Or:       head=the num=pl sem=the_plural
+         Or:       num=mass head=the sem=the_mass
+            caviar: caviar 
+            Attributes: head=caviar sem=caviar
+         N: caviar 
+         Attributes: num=mass head=caviar sem=caviar
+      NP: the caviar 
+      Attributes: head=caviar num=mass sem=the_mass(caviar)
+            is: is 
+            Attributes: sem=is head=is
+         V: is 
+         Attributes: sem=%pred %subj pred(subj) tense=pres head=be arg=pred num=sing
+            fine: fine 
+            Attributes: sem=fine head=fine
+         Adj: fine 
+         Attributes: head=fine sem=fine
+      VP: is fine 
+      Attributes: sem=%subj fine(subj) tense=pres head=be num=sing
+   S: the caviar is fine 
+   No consistent way to assign attributes!  (Maybe another parse?)
+   .: . 
+   Attributes: sem=. head=.
+ROOT: the caviar is fine . 
+No consistent way to assign attributes!  (Maybe another parse?)
+---

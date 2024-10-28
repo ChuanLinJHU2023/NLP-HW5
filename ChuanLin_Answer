@@ -62,7 +62,7 @@ As a result, we can conclude that g is as follows:
 g(h) = %y %e h(y,e), manner(e, passionate)
 
 3-g-i
-f (λx loves(Mary, x)) = (∀y woman(y) ⇒ loves(M ary, y))
+f (λx loves(Mary, x)) = (∀y woman(y) ⇒ loves(Mary, y))
 As a result,
 f(g) = (A%y woman(y) -> g(y))
 
@@ -135,7 +135,64 @@ However, in this sentence, (VP: would have eat -ed his sandwich -s ; Attributes:
 We have "tense=modal" and "sem = **** would *****" at the same time, which is inappropriate.
 
 5.
-Give up
+I run the following command line
+./parseattrs  english.gra  english.sen > english.para
+./parseattrs  english2.gra  english_with_caviar.sen > english_with_caviar.para
+
+The rule for bonbon is on line 211
+1 N[=1 num=sing] bonbon
+
+The rule for NP is on line 77
+1 NP[=2 sem=1(2) num=n]	Det[num=n] N[num=n] # make an NP
+
+The rule for VP is on line 63
+1 VP[=1 sem="1(2)"]           V[arg=np] NP   # transitive verbs: "kiss Jill"
+
+The rule for morphology is on line 209
+1 N[=1 num=pl] N[=1 num=sing] -s     # morphology
+
+To support some mass noun such as "caviar", I add the following rules:
+
+The rule to get terminal "caviar". This rule is on line 221 (about)
+1 N[=1 num=mass] caviar
+
+The rule to support the noun "caviar" to follow determiner "all" on line 228 (about)
+1 Det[=1 num=mass sem=all]      	 all
+
+The rule to support the noun "caviar" to follow determiner "some" on line 238 (about)
+1 Det[=1 num=mass sem=some_mass] some  # different sem from singular some,
+
+The rule to support the noun "caviar" to follow determiner "the" on line 243 (about)
+1 Det[=1 num=mass sem=the_mass]  the   # different semantics from singular the
+
+The rule to support the noun "caviar" to follow determiner "his" on line 249 (about)
+1 Det[=1 num=mass   sem="%n the_mass(%x n(x)^possess(x,him))"]  his
+1 Det[=1 num=mass  sem="%n the_mass(%x n(x)^possess(x,her))"]  her
+1 Det[=1 num=mass   sem="%n the_mass(%x n(x)^possess(x,it))"]   its
+1 Det[=1 num=mass   sem="%n the_mass(%x n(x)^possess(x,them))"] their
+
+The rule to make sure that if mass noun work with verb, it is treated as singular.
+On line 64 (about)
+1 VP[=1 sem="1(2)" num=sing]           V[arg=np] N[num=mass]
+1 VP[=1 sem="1(2)" num=pl]           V[arg=np] NP[num=mass]
+On line 39 about
+1 S[=2 sem=Pres(2(1))]	N[num=mass] VP[num=sing tense=pres]
+1 S[=2 sem=Pres(2(1))]	NP[num=mass] VP[num=pl tense=pres]
+1 S[=2 sem=Past(2(1))]	N[num=mass] VP[num=sing tense=past]
+1 S[=2 sem=Past(2(1))]	NP[num=mass] VP[num=pl tense=past]
+1 S[=2 sem=2(1)]	N[num=mass] VP[num=sing tense=modal]
+1 S[=2 sem=2(1)]	NP[num=mass] VP[num=pl tense=modal]
+
+
+
+
+
+
+
+
+
+
+
 
 6-a.
 ./parseattrs english-fullquant.gra english.sen > english-fullquant.para
